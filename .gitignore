@@ -1,0 +1,85 @@
+# macOS Copy Path Service .gitignore
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# macOS Finder metadata
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Development files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Logs
+*.log
+logs/
+
+# Testing artifacts
+test_*.sh
+test_output/
+debug/
+
+# Local configuration
+.env
+.env.local
+config.local
+
+# Backup files
+*.backup
+*.bak
+*-backup
+*-bak
+
+# Archive files
+*.zip
+*.tar.gz
+*.dmg
+
+# Personal notes (optional)
+NOTES.md
+TODO.personal
+.personal/
+
+# Installation testing
+test_install/
+install_test/
+
+# Documentation builds (if using doc generators)
+build/
+dist/
+_site/
+
+# Editor temporaries
+.*.swp
+.*.swo
+
+# IDE files
+*.xcodeproj
+*.xcworkspace
+
+# Compiled AppleScript (if any)
+*.scpt
+
+# Service testing
+test_service.workflow/
+
+# Local development
+local/
+dev/
