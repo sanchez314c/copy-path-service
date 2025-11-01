@@ -87,4 +87,15 @@ dev/
 
 # Archive folder (legacy content)
 archive/node_modules/
+
+# Node modules
+node_modules/
+
+# Python virtual environments
 venv/
+ENV/
+env/
+__pycache__/
+
+# Archive
+archive/
