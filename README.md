@@ -3,6 +3,7 @@
 [![macOS](https://img.shields.io/badge/macOS-10.6+-blue.svg)](https://www.apple.com/macos)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.0-orange.svg)](CHANGELOG.md)
+[![Documentation](https://img.shields.io/badge/Documentation-Complete-brightgreen.svg)](docs/README.md)
 
 A simple macOS service that adds a "Copy Path" option to the Finder context menu, eliminating the need to drag files to Terminal to get their paths.
 
@@ -67,9 +68,26 @@ The copied path format: `/Users/username/path/to/file.ext`
 
 ## 📚 Documentation
 
-- **[Installation Guide](docs/Copy_Path_Service_README.md)** - Detailed setup instructions
-- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and solutions
-- **[Contributing](CONTRIBUTING.md)** - How to contribute to the project
+### Getting Started
+- **[📖 Documentation Hub](docs/README.md)** - Complete documentation overview
+- **[⚡ Quick Start](docs/quick-start.md)** - Get up and running in 5 minutes
+- **[🔧 Installation Guide](docs/installation.md)** - Detailed setup instructions
+
+### User Guides
+- **[📚 User Guide](docs/user-guide.md)** - Complete usage instructions and tips
+- **[❓ FAQ](docs/faq.md)** - Frequently asked questions
+
+### Development
+- **[🛠️ Development Guide](docs/development.md)** - Contributing and development setup
+- **[🏗️ Technical Architecture](docs/technical-architecture.md)** - System design and implementation
+- **[🔒 Security](docs/security.md)** - Security considerations and best practices
+
+### Reference
+- **[🔍 Troubleshooting](docs/troubleshooting.md)** - Common issues and solutions
+- **[🛠️ Tech Stack](docs/tech-stack.md)** - Technologies and dependencies
+- **[🗺️ Roadmap](docs/roadmap.md)** - Future development plans
+- **[📦 Releases](docs/releases.md)** - Release information and history
+- **[🤝 Contributing](CONTRIBUTING.md)** - How to contribute to the project
 
 ## 🐛 Troubleshooting
 
@@ -79,7 +97,11 @@ The copied path format: `/Users/username/path/to/file.ext`
 - Check System Preferences → Extensions → Finder Extensions
 
 **Service appears but doesn't work?**
-- See [detailed troubleshooting guide](docs/TROUBLESHOOTING.md)
+- See [detailed troubleshooting guide](docs/troubleshooting.md)
+
+**Need help?**
+- Check the [FAQ](docs/faq.md) for common questions
+- [Report an issue](https://github.com/USERNAME/macos-copy-path-service/issues) on GitHub
 
 ## 🤝 Contributing
 

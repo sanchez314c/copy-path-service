@@ -46,6 +46,7 @@ config.local
 *.bak
 *-backup
 *-bak
+*.backup.????????_??????
 
 # Archive files
 *.zip
@@ -83,3 +84,7 @@ test_service.workflow/
 # Local development
 local/
 dev/
+
+# Archive folder (legacy content)
+archive/node_modules/
+venv/

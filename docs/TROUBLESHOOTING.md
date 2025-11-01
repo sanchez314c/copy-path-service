@@ -1,26 +1,26 @@
 # Troubleshooting Guide
 
-Common issues and solutions for the macOS Copy Path Service.
+Common issues and solutions for Copy Path Service - a macOS utility that adds "Copy Path" and "Run Script" options to the Finder context menu.
 
 ## 🔍 Quick Diagnosis
 
-**Not seeing "Copy Path" in the context menu?**
+**Not seeing services in the context menu?**
 1. Wait 30 seconds after installation
 2. Restart Finder: `killall Finder`
 3. Check System Preferences → Extensions → Finder Extensions
 
-**"Copy Path" appears but doesn't work?**
+**Services appear but don't work?**
 1. Check Console.app for error messages
 2. Verify service files exist
-3. Try reinstalling the service
+3. Try reinstalling services
 
 ## 🚨 Common Issues
 
-### Issue: "Copy Path" doesn't appear in context menu
+### Issue: Services don't appear in context menu
 
 **Symptoms:**
-- Service installed successfully
-- No "Copy Path" option when right-clicking files
+- Services installed successfully
+- No "Copy Path" or "Run Script" options when right-clicking files
 
 **Solutions:**
 
@@ -36,44 +36,49 @@ Common issues and solutions for the macOS Copy Path Service.
    killall Finder
    ```
 
-3. **Check service file location:**
+3. **Check service file locations:**
    ```bash
    ls -la ~/Library/Services/"Copy Path.workflow"
-   # Should show the workflow directory
+   ls -la ~/Library/Services/"Run Script.workflow"
+   # Should show workflow directories
    ```
 
 4. **Verify in System Preferences:**
    - System Preferences → Extensions → Finder Extensions
-   - Look for "Copy Path" and ensure it's enabled
+   - Look for "Copy Path" and "Run Script" and ensure they're enabled
 
-### Issue: Service appears but copying doesn't work
+### Issue: Service appears but doesn't work
 
 **Symptoms:**
-- "Copy Path" appears in menu
-- Clicking it does nothing or shows error
+- Services appear in menu
+- Clicking them does nothing or shows error
 
 **Solutions:**
 
 1. **Check Console for errors:**
    - Open Console.app
-   - Look for messages related to "Copy Path" or "Automator"
+   - Look for messages related to "Copy Path", "Run Script", or "Automator"
 
 2. **Verify workflow contents:**
    ```bash
    cat ~/Library/Services/"Copy Path.workflow/Contents/document.wflow"
+   cat ~/Library/Services/"Run Script.workflow/Contents/document.wflow"
    # Should contain AppleScript content
    ```
 
 3. **Test manually:**
    ```bash
-   # Test if the service is properly registered
+   # Test if services are properly registered
    open ~/Library/Services/"Copy Path.workflow"
+   open ~/Library/Services/"Run Script.workflow"
    ```
 
-4. **Reinstall the service:**
+4. **Reinstall services:**
    ```bash
    rm -rf ~/Library/Services/"Copy Path.workflow"
+   rm -rf ~/Library/Services/"Run Script.workflow"
    ./scripts/install_copy_path_service.sh
+   ./scripts/install_run_script_service.sh
    ```
 
 ### Issue: Installation script fails
@@ -88,11 +93,13 @@ Common issues and solutions for the macOS Copy Path Service.
 1. **Check script permissions:**
    ```bash
    chmod +x scripts/install_copy_path_service.sh
+   chmod +x scripts/install_run_script_service.sh
    ```
 
 2. **Run with explicit bash:**
    ```bash
    bash scripts/install_copy_path_service.sh
+   bash scripts/install_run_script_service.sh
    ```
 
 3. **Check disk space:**
@@ -107,6 +114,41 @@ Common issues and solutions for the macOS Copy Path Service.
    # Should show write permissions for your user
    ```
 
+### Issue: Run Script service doesn't execute scripts
+
+**Symptoms:**
+- "Run Script" appears in menu
+- Clicking it does nothing or shows "cannot execute" error
+
+**Solutions:**
+
+1. **Check script permissions:**
+   ```bash
+   chmod +x your_script.py
+   chmod +x your_script.sh
+   ```
+
+2. **Verify script shebang:**
+   ```bash
+   # Python scripts must start with:
+   #!/usr/bin/env python3
+   
+   # Bash scripts must start with:
+   #!/bin/bash
+   ```
+
+3. **Test script manually:**
+   ```bash
+   ./your_script.py
+   # Should run without errors
+   ```
+
+4. **Check supported file types:**
+   - Python: `.py` files
+   - Bash: `.sh` files
+   - Node.js: `.js` files
+   - Other: Check file has execute permissions
+
 ### Issue: Special characters in paths
 
 **Symptoms:**
@@ -115,19 +157,19 @@ Common issues and solutions for the macOS Copy Path Service.
 
 **Solutions:**
 
-1. **The service handles this automatically** - paths are properly formatted as POSIX paths
+1. **The services handle this automatically** - paths are properly formatted as POSIX paths
 
-2. **If issues persist, check the AppleScript:**
+2. **If issues persist, check AppleScript:**
    - The script uses `POSIX path` which handles special characters
    - Report this as a bug if you find cases it doesn't handle
 
 ### Issue: Multiple file selection
 
 **Symptoms:**
-- Selecting multiple files and using "Copy Path" only copies one path
+- Selecting multiple files and using services only processes one file
 
 **Current Behavior:**
-- **This is expected** - the service currently copies the path of the first selected file
+- **This is expected** - services currently process the first selected file
 - **Feature request:** Multi-file support is planned for future versions
 
 ## 🔧 Advanced Troubleshooting
@@ -139,10 +181,10 @@ Common issues and solutions for the macOS Copy Path Service.
 defaults read pbs NSServicesStatus
 ```
 
-### Manually test the AppleScript
+### Manually test AppleScript
 
 ```bash
-# Create a test script
+# Create a test script for Copy Path
 cat > test_copy_path.scpt << 'EOF'
 on run {input, parameters}
     set the clipboard to POSIX path of (item 1 of input)
@@ -182,6 +224,7 @@ sw_vers
 ### Service Status
 ```bash
 ls -la ~/Library/Services/"Copy Path.workflow/Contents/"
+ls -la ~/Library/Services/"Run Script.workflow/Contents/"
 ```
 
 ### Console Errors
@@ -199,7 +242,7 @@ pluginkit -m -p com.apple.Finder.FinderSync
 ## 🆘 Getting Help
 
 ### Before seeking help:
-1. **Try the solutions above**
+1. **Try to solutions above**
 2. **Check existing GitHub issues**
 3. **Test on a different file/folder**
 4. **Try restarting your Mac** (if all else fails)
@@ -211,16 +254,17 @@ pluginkit -m -p com.apple.Finder.FinderSync
 4. **Mention what you've already tried**
 
 ### Where to get help:
-- **GitHub Issues**: [Report a bug](https://github.com/USERNAME/macos-copy-path-service/issues)
-- **Discussions**: [Ask questions](https://github.com/USERNAME/macos-copy-path-service/discussions)
+- **GitHub Issues**: [Report a bug](https://github.com/USERNAME/copy-path-service/issues)
+- **Discussions**: [Ask questions](https://github.com/USERNAME/copy-path-service/discussions)
 
 ## 🔄 Clean Reinstallation
 
 If all else fails, try a complete clean reinstall:
 
 ```bash
-# 1. Remove existing service
+# 1. Remove existing services
 rm -rf ~/Library/Services/"Copy Path.workflow"
+rm -rf ~/Library/Services/"Run Script.workflow"
 
 # 2. Flush services
 /System/Library/CoreServices/pbs -flush
@@ -231,8 +275,9 @@ killall Finder
 # 4. Wait 10 seconds
 sleep 10
 
-# 5. Reinstall
+# 5. Reinstall both services
 ./scripts/install_copy_path_service.sh
+./scripts/install_run_script_service.sh
 
 # 6. Wait 30 seconds for services to refresh
 sleep 30
@@ -240,14 +285,23 @@ sleep 30
 
 ## ✅ Verification Steps
 
-After any fix, verify the service works:
+After any fix, verify services work:
 
+### Copy Path Service:
 1. **Right-click a file** in Finder
 2. **Look for "Copy Path"** in Services submenu
 3. **Click "Copy Path"**
 4. **Open Terminal** and paste (`⌘+V`)
-5. **Verify** the correct path appears
+5. **Verify** correct path appears
+
+### Run Script Service:
+1. **Create a test script** (e.g., `test.py` with `print("Hello World")`)
+2. **Make it executable**: `chmod +x test.py`
+3. **Right-click the script** in Finder
+4. **Look for "Run Script"** in Services submenu
+5. **Click "Run Script"**
+6. **Verify** script executes and shows output
 
 ---
 
-**Still having issues?** [Open a GitHub issue](https://github.com/USERNAME/macos-copy-path-service/issues) with your system info and error details!
+**Still having issues?** [Open a GitHub issue](https://github.com/USERNAME/copy-path-service/issues) with your system info and error details!
